@@ -1,18 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getCollection } from 'astro:content';
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("blog")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
 <Layout>
 	<section class="intro">
-		<h1>Hi, I'm Ayush.</h1>
+		<h1>Hi, I'm Ayush Rawat.</h1>
 		<p>
-			I'm a software engineer and writer. I like building things and talking about them.
-			This is my digital garden where I share my thoughts on engineering, design, and life.
+			I'm a software engineer. I like building things and talking about
+			them. This is my digital garden where I share my thoughts on
+			engineering, design, and life.
 		</p>
 	</section>
 
@@ -26,11 +27,14 @@ const posts = (await getCollection('blog')).sort(
 							<div class="post-header">
 								<h2 class="title">{post.data.title}</h2>
 								<span class="date">
-									{post.data.pubDate.toLocaleDateString('en-us', {
-										year: 'numeric',
-										month: 'short',
-										day: 'numeric',
-									})}
+									{post.data.pubDate.toLocaleDateString(
+										"en-us",
+										{
+											year: "numeric",
+											month: "short",
+											day: "numeric",
+										},
+									)}
 								</span>
 							</div>
 							<p class="description">{post.data.description}</p>
@@ -52,7 +56,7 @@ const posts = (await getCollection('blog')).sort(
 		margin-bottom: 1rem;
 		letter-spacing: -0.05em;
 	}
-	
+
 	.intro p {
 		font-size: 1.1rem;
 		color: var(--text-secondary);
@@ -72,7 +76,7 @@ const posts = (await getCollection('blog')).sort(
 		list-style-type: none;
 		padding: 0;
 	}
-	
+
 	li {
 		margin-bottom: 3rem;
 	}
@@ -108,12 +112,12 @@ const posts = (await getCollection('blog')).sort(
 		font-size: 1rem;
 		line-height: 1.6;
 	}
-	
+
 	/* Hover effects */
 	a:hover .title {
 		color: var(--accent-color);
-		text-decoration: underline;
+		/* text-decoration: underline; */
 		text-decoration-thickness: 2px;
-		text-underline-offset: 4px;
+		/* text-underline-offset: 4px; */
 	}
 </style>
