@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+	{
+		title: 'Logit',
+		description: 'A lightweight logging service built with Go and Lucene.',
+		link: 'https://github.com/yourusername/logit'
+	},
+	{
+		title: 'Portfolio',
+		description: 'Minimalist portfolio built with Astro and Vanilla CSS.',
+		link: 'https://github.com/yourusername/portfolio'
+	},
+	{
+		title: 'TaskMaster',
+		description: 'A CLI tool for managing daily tasks and productivity.',
+		link: 'https://github.com/yourusername/taskmaster'
+	}
+];
+---
+
+<Layout title="Projects - Ayush Rawat">
+	<section>
+		<h1 class="page-title">Projects</h1>
+		<div class="projects-grid">
+			{
+				projects.map((project) => (
+					<a href={project.link} target="_blank" class="project-card">
+						<h3>{project.title}</h3>
+						<p>{project.description}</p>
+					</a>
+				))
+			}
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.page-title {
+		font-size: 2.5rem;
+		margin-bottom: 3rem;
+		letter-spacing: -0.02em;
+	}
+
+	.projects-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 2rem;
+	}
+
+	.project-card {
+		display: block;
+		padding: 1.5rem;
+		border: 1px solid var(--border-color);
+		border-radius: 8px;
+		transition: all 0.2s ease;
+		background: rgba(255, 255, 255, 0.03);
+	}
+
+	.project-card:hover {
+		transform: translateY(-2px);
+		border-color: var(--accent-color);
+		background: rgba(255, 255, 255, 0.05);
+	}
+
+	h3 {
+		margin: 0 0 0.5rem 0;
+		font-size: 1.25rem;
+	}
+
+	p {
+		margin: 0;
+		color: var(--text-secondary);
+		font-size: 0.95rem;
+	}
+</style>
