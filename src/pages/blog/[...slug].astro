@@ -1,15 +1,15 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
+import { type CollectionEntry, getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await getCollection("blog");
 	return posts.map((post) => ({
 		params: { slug: post.slug },
 		props: post,
 	}));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await post.render();
@@ -27,15 +27,17 @@ const { Content } = await post.render();
 			<h1 class="title">{post.data.title}</h1>
 			<div class="meta">
 				<time datetime={post.data.pubDate.toISOString()}>
-					{post.data.pubDate.toLocaleDateString('en-us', {
-						year: 'numeric',
-						month: 'long',
-						day: 'numeric',
-					})}
+					{
+						post.data.pubDate.toLocaleDateString("en-us", {
+							year: "numeric",
+							month: "long",
+							day: "numeric",
+						})
+					}
 				</time>
 			</div>
 		</header>
-		
+
 		<div class="content">
 			<Content />
 		</div>
@@ -66,7 +68,7 @@ const { Content } = await post.render();
 	.current {
 		color: var(--text-color);
 	}
-	
+
 	.separator {
 		margin: 0 0.5rem;
 		color: var(--border-color);
@@ -143,14 +145,14 @@ const { Content } = await post.render();
 		border: 1px solid var(--border-color);
 		position: relative; /* For copy button positioning */
 	}
-	
+
 	/* Removed the light mode override that was causing visibility issues (light text on light bg) */
 
 	:global(.content code) {
 		background-color: rgba(125, 125, 125, 0.1);
 		padding: 0.2rem 0.4rem;
 		border-radius: 4px;
-		font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+		font-family: "Menlo", "Monaco", "Courier New", monospace;
 		font-size: 0.85em;
 	}
 
@@ -165,7 +167,10 @@ const { Content } = await post.render();
 		color: #e0e0e0;
 		cursor: pointer;
 		opacity: 0;
-		transition: opacity 0.2s, background-color 0.2s, color 0.2s;
+		transition:
+			opacity 0.2s,
+			background-color 0.2s,
+			color 0.2s;
 		padding: 0.25rem;
 		display: flex;
 		align-items: center;
@@ -175,7 +180,7 @@ const { Content } = await post.render();
 	:global(.content pre:hover .copy-code) {
 		opacity: 0.7;
 	}
-	
+
 	:global(.content pre:hover .copy-code:hover) {
 		opacity: 1;
 		background-color: rgba(255, 255, 255, 0.1);
@@ -195,7 +200,7 @@ const { Content } = await post.render();
 	const checkIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
 
 	// Add copy buttons to code blocks
-	document.addEventListener('astro:page-load', () => {
+	document.addEventListener("astro:page-load", () => {
 		addCopyButtons();
 	});
 
@@ -203,31 +208,32 @@ const { Content } = await post.render();
 	addCopyButtons();
 
 	function addCopyButtons() {
-		const codeBlocks = document.querySelectorAll('pre');
-		
-		codeBlocks.forEach(block => {
-			// Check if button already exists to prevent duplicates
-			if (block.querySelector('.copy-code')) return;
+		const codeBlocks = document.querySelectorAll("pre");
 
-			const button = document.createElement('button');
-			button.className = 'copy-code';
+		codeBlocks.forEach((block) => {
+			// Check if button already exists to prevent duplicates
+			if (block.querySelector(".copy-code")) return;
+
+			const button = document.createElement("button");
+			button.className = "copy-code";
 			button.innerHTML = copyIcon;
-			button.setAttribute('aria-label', 'Copy code');
-			
-			button.addEventListener('click', async () => {
-				const code = block.querySelector('code')?.innerText || block.innerText;
-				
+			button.setAttribute("aria-label", "Copy code");
+
+			button.addEventListener("click", async () => {
+				const code =
+					block.querySelector("code")?.innerText || block.innerText;
+
 				try {
 					await navigator.clipboard.writeText(code);
 					button.innerHTML = checkIcon;
-					button.style.color = '#4ade80'; // Green color for success
-					
+					button.style.color = "#4ade80"; // Green color for success
+
 					setTimeout(() => {
 						button.innerHTML = copyIcon;
-						button.style.color = ''; // Reset color
+						button.style.color = ""; // Reset color
 					}, 2000);
 				} catch (err) {
-					console.error('Failed to copy mode', err);
+					console.error("Failed to copy mode", err);
 				}
 			});
 

@@ -1,1 +1,1 @@
-# astro
+## Exploring and writing about the joy of programming 
